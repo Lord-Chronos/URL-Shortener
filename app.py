@@ -1,4 +1,4 @@
-from flask import Flask, redirect, request, render_template
+from flask import Flask, redirect, request, render_template, jsonify
 import hashlib
 import pymongo
 import sys
@@ -12,7 +12,6 @@ db_address = "0.0.0.0:27017"
 client = pymongo.MongoClient("mongodb://" + db_address + "/")
 db = client["url-shortener"]
 urls = db["urls"]
-
 # Checks Database is Connected
 try:
     client.server_info()
@@ -26,8 +25,16 @@ except pymongo.errors.ServerSelectionTimeoutError as e:
 
 @app.route('/shorten', methods=['POST'])
 def shorten():
-    original_url = request.form['url']
+    content_type = request.headers.get('Content-Type')
+    print(content_type)
+    # original_url = request.form['url']
 
+    if content_type == 'application/json':
+        data = request.get_json()
+        original_url = data['url']
+    else:
+        original_url = request.form['url']
+    print(original_url)
     # Generate a hash of the original URL using SHA-256, truncated to 6 characters
     hash = hashlib.sha256(original_url.encode('utf-8')).hexdigest()[:6]
     url_data = {
@@ -37,16 +44,34 @@ def shorten():
 
     urls.insert_one(url_data)
     short_url = 'http://localhost:3000/' + hash
-    return render_template('base.html', short_url=short_url)
+
+    # Returns json or html depending on request type
+    if content_type == 'application/json':
+        return jsonify({'short_url': short_url}), 200
+    else:
+        return render_template('base.html', short_url=short_url)
 
 
 @app.route('/<short_url>')
 def redirect_url(short_url):
+    content_type = request.headers.get('Content-Type')
+
     url = urls.find_one({"short_url": short_url})
+
+    # Returns error json or html if url not in database
     if not url:
-        return render_template('error.html')
+        if content_type == 'application/json':
+            return jsonify({"error": "URL not found"}), 404
+        else:
+            return render_template('error.html')
+
+    # Returns succeess json or html with original url from database
     original_url = url["original_url"]
-    return redirect(original_url)
+
+    if content_type == 'application/json':
+        return jsonify({'original_url': original_url}), 200
+    else:
+        return redirect(original_url)
 
 
 @app.route('/')
