@@ -16,7 +16,7 @@ This is a Flask-based web application that shortens URL's. The application uses 
 
 # Setup
 ## Database
-The application connects to a MongoDB database running on `0.0.0.0:27017`. If the connection fails, the application terminates with an error message.
+The application connects to a MongoDB database running. If the connection fails, the application terminates with an error message.
 
 To setup the MongoDB batabse in docker run:
 
@@ -30,12 +30,11 @@ To setup the MongoDB batabse in docker run:
 
 3. Install the dependencies `$ pip install -r requirements.txt`
 
-5. Make sure you have a MongoDB database running on 0.0.0.0:27017. 
-   If you do not have one, you can follow the steps at ##database
+5. Replace `db_address = "<host>:<port>"` with the address of your MongoDB database you set up earlier
 
-4. Start the Flask development server `$ python app.py`
+4. Start the Flask server with `python app.py`
 
-5. Open a web browser and go to `http://127.0.0.1:3000`
+5. (optional) To use the web interface go to `http://127.0.0.1:3000`
 
 # Use
 ## Endpoints
@@ -56,5 +55,5 @@ To setup the MongoDB batabse in docker run:
 │   ├── base.html
 │   └── error.html
 └── static
-    └── style2.css
+    └── style.css
 ```
