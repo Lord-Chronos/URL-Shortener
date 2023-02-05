@@ -34,7 +34,7 @@ One way to set this up is by using Docker with the following command:
 
 4. Start the Flask server with `$ python app.py`
 
-5. (Optional) Access the web interface at http://127.0.0.1:3000
+5. (Optional) Access the web interface at `http://localhost:3000`
 
 # Use
 ## Endpoints

@@ -6,7 +6,7 @@ import sys
 app = Flask(__name__)
 
 # Replace with your mongodb address
-db_address = "0.0.0.0:27017"
+db_address = "<host>:<port>"
 
 # Connect to the MongoDB database
 client = pymongo.MongoClient("mongodb://" + db_address + "/")
@@ -48,7 +48,7 @@ def shorten():
 
     # Returns json or html depending on request type
     if content_type == 'application/json':
-        return jsonify({'short_url_return': short_url}), 200
+        return jsonify({'short_url_return': short_url_return}), 200
     else:
         return render_template('base.html', short_url=short_url_return)
 
@@ -80,10 +80,10 @@ def index():
     return render_template('base.html')
 
 # Route to serve css
-@app.route('/style2.css')
+@app.route('/style.css')
 def css():
-    return app.send_from_directory('static', 'style2.css')
+    return app.send_from_directory('static', 'style.css')
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=3000)
+    app.run(host='0.0.0.0', port=3000)
