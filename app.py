@@ -3,35 +3,31 @@ import hashlib
 import pymongo
 import sys
 
-# Initialize the Flask application
 app = Flask(__name__)
 
+# Replace with your mongodb address
 db_address = "0.0.0.0:27017"
 
 # Connect to the MongoDB database
 client = pymongo.MongoClient("mongodb://" + db_address + "/")
 db = client["url-shortener"]
 urls = db["urls"]
-print(urls)
 
+# Checks Database is Connected
+try:
+    client.server_info()
 
-def database_check():
-    try:
-        client.server_info()
+except pymongo.errors.ServerSelectionTimeoutError as e:
+    print("Databse connection failed with error: ", str(e))
+    print("Ensure you have mongodb databse running on" + db_address)
+    print("Quitting the application")
+    sys.exit(1)
 
-    except pymongo.errors.ServerSelectionTimeoutError as e: 
-        print("Databse connection failed with error: ", str(e))
-        print("Ensure you have mongodb databse running on" + db_address )
-        print("Quitting the application")
-        sys.exit(1)
-    return (urls)
-
-database_check()
 
 @app.route('/shorten', methods=['POST'])
 def shorten():
     original_url = request.form['url']
-    
+
     # Generate a hash of the original URL using SHA-256, truncated to 6 characters
     hash = hashlib.sha256(original_url.encode('utf-8')).hexdigest()[:6]
     url_data = {
@@ -40,8 +36,9 @@ def shorten():
     }
 
     urls.insert_one(url_data)
-    short_url =  'http://localhost:3000/' + hash
+    short_url = 'http://localhost:3000/' + hash
     return render_template('base.html', short_url=short_url)
+
 
 @app.route('/<short_url>')
 def redirect_url(short_url):
@@ -51,13 +48,16 @@ def redirect_url(short_url):
     original_url = url["original_url"]
     return redirect(original_url)
 
+
 @app.route('/')
 def index():
     return render_template('base.html')
-    
+
+
 @app.route('/style2.css')
 def css():
     return app.send_from_directory('static', 'style2.css')
+
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=3000)
