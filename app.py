@@ -21,7 +21,7 @@ def database_check():
 
     except pymongo.errors.ServerSelectionTimeoutError as e: 
         print("Databse connection failed with error: ", str(e))
-        print("Ensure you have mongodb databse running on 0.0.0.0:27017")
+        print("Ensure you have mongodb databse running on" + db_address )
         print("Quitting the application")
         sys.exit(1)
     return (urls)
