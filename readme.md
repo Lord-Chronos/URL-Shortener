@@ -17,7 +17,7 @@ A Flask-based web application that shortens URL's. The application uses a MongoD
 
 # Setup
 ## Database
-The application requires a MongoDB database to store the URLs and short URLs. 
+The application requires a MongoDB database to store the original and short URLs. 
 One way to set this up is by using Docker with the following command:
 
 `$ docker run --name mongo-url -d -p 27017:27017 mongo:latest    `
