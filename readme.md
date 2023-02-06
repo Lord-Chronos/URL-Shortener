@@ -1,6 +1,6 @@
 # URL Shortener
 A Flask-based web application that shortens URL's. The application uses a MongoDB database to store the original URLs and their corresponding short URLs, and has multiple endpoints for shortening and redirecting URLs. It supports both JSON and HTML requests and has error handling in place.
-![Alt text](example.png?raw=true "Title")
+![Example.png](./example.png?raw=true "Title")
 # Table of Contents
 - [Application Features](#application-features)
 - [Technical Info](#technical-info)
