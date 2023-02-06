@@ -6,7 +6,6 @@ A Flask-based web application that shortens URL's. The application uses a MongoD
 - URL Redirection
 - JSON and HTML Request WSupport
 - Error Handling
-- MongoDB Database Connectivity
 
 # Technical Info
 - Flask
@@ -47,7 +46,7 @@ One way to set this up is by using Docker with the following command:
 
 - `/<short_url>` - A GET endpoint that accepts a short URL as a path parameter and redirects the user to the original URL. If the short URL is not found in the database, it returns an error message in either JSON or HTML format.
     - JSON Example: `$ curl -X GET -H 'Content-Type: application/json' http://localhost:3000/23c73f`
-    
+
 **Note:** Currently, the return URL is for localhost even if the server is remote.
 
 # Directory Structure
