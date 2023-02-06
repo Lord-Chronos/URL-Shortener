@@ -26,17 +26,16 @@ except pymongo.errors.ServerSelectionTimeoutError as e:
 
 # POST route for shortening the URL
 @app.route('/shorten', methods=['POST'])
-def shorten():
+def shorten():    
     content_type = request.headers.get('Content-Type')
-    
-    # original_url = request.form['url']
+
     if content_type == 'application/json':
         data = request.get_json()
         original_url = data['url']
     else:
         original_url = request.form['url']
 
-    # Generate a hash of the original URL using SHA-256, truncated to 6 characters
+    # Hash of the original URL using SHA-256, truncated to 6 characters
     hash = hashlib.sha256(original_url.encode('utf-8')).hexdigest()[:6]
     url_data = {
         "short_url": hash,
@@ -44,7 +43,7 @@ def shorten():
     }
 
     urls.insert_one(url_data)
-    short_url_return = 'http://localhost:3000/' + hash
+    short_url_return = 'http://0.0.0.0:3000/' + hash
 
     # Returns json or html depending on request type
     if content_type == 'application/json':
@@ -55,9 +54,8 @@ def shorten():
 # GET route for retrieving original URL
 @app.route('/<short_url>')
 def redirect_url(short_url):
-    content_type = request.headers.get('Content-Type')
-
     url = urls.find_one({"short_url": short_url})
+    content_type = request.headers.get('Content-Type')
 
     # Returns error json or html if url not in database
     if not url:
@@ -68,7 +66,7 @@ def redirect_url(short_url):
 
     # Returns succeess json or html with original url from database
     original_url = url["original_url"]
-
+    
     if content_type == 'application/json':
         return jsonify({'original_url': original_url}), 200
     else:
