@@ -22,6 +22,7 @@ One way to set this up is by using Docker with the following command:
 
 `$ docker run --name mongo-url -d -p 27017:27017 mongo:latest    `
 
+(note MongoDB 5.0+ requires a CPU with AVX support, if your cpu does not have support use `mongo:4` )
 
 ## Flask Application
 1. Clone the repository: `$ git clone https://github.com/<repo-name>.git`
@@ -42,10 +43,10 @@ One way to set this up is by using Docker with the following command:
 - `/` - A GET endpoint that returns the main site page in HTML format.
 
 - `/shorten` - A POST endpoint that accepts a url parameter in the request body and returns a shortened URL in either JSON or HTML format depending on the request type.
-    - JSON Example: `$ curl -X POST -H 'Content-Type: application/json' -d '{"url":"https://www.reddit.com/"}' http://localhost:3000/shorten`
+    - JSON Example: `$ curl -X POST -H 'Content-Type: application/json' -d '{"url":"https://www.github.com/"}' http://localhost:3000/shorten`
 
 - `/<short_url>` - A GET endpoint that accepts a short URL as a path parameter and redirects the user to the original URL. If the short URL is not found in the database, it returns an error message in either JSON or HTML format.
-    - JSON Example: `$ curl -X GET -H 'Content-Type: application/json' http://localhost:3000/14830d`
+    - JSON Example: `$ curl -X GET -H 'Content-Type: application/json' http://localhost:3000/23c73f`
 
 # Directory Structure
 ```
