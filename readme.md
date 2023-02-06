@@ -7,7 +7,6 @@ A Flask-based web application that shortens URL's. The application uses a MongoD
 - JSON and HTML Request WSupport
 - Error Handling
 - MongoDB Database Connectivity
-- Containerised version coming soon?
 
 # Technical Info
 - Flask
@@ -22,7 +21,7 @@ One way to set this up is by using Docker with the following command:
 
 `$ docker run --name mongo-url -d -p 27017:27017 mongo:latest    `
 
-(note MongoDB 5.0+ requires a CPU with AVX support, if your cpu does not have support use `mongo:4` )
+**Note:** MongoDB 5.0+ requires a CPU with AVX support, if your cpu does not have support use `mongo:4`
 
 ## Flask Application
 1. Clone the repository: `$ git clone https://github.com/<repo-name>.git`
@@ -37,6 +36,7 @@ One way to set this up is by using Docker with the following command:
 
 5. (Optional) Access the web interface at `http://localhost:3000`
 
+
 # Use
 ## Endpoints
 
@@ -47,6 +47,8 @@ One way to set this up is by using Docker with the following command:
 
 - `/<short_url>` - A GET endpoint that accepts a short URL as a path parameter and redirects the user to the original URL. If the short URL is not found in the database, it returns an error message in either JSON or HTML format.
     - JSON Example: `$ curl -X GET -H 'Content-Type: application/json' http://localhost:3000/23c73f`
+    
+**Note:** Currently, the return URL is for localhost even if the server is remote.
 
 # Directory Structure
 ```

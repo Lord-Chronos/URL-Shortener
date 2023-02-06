@@ -43,7 +43,7 @@ def shorten():
     }
 
     urls.insert_one(url_data)
-    short_url_return = 'http://0.0.0.0:3000/' + hash
+    short_url_return = 'http://localhost:3000/' + hash
 
     # Returns json or html depending on request type
     if content_type == 'application/json':
