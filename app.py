@@ -35,7 +35,7 @@ def shorten():
     else:
         original_url = request.form['url']
 
-    # Hash of the original URL using SHA-256, truncated to 6 characters
+    # Hash of the original URL using SHA-256, truncated to 7 characters
     hash = hashlib.sha256(original_url.encode('utf-8')).hexdigest()[:6]
     url_data = {
         "short_url": hash,
