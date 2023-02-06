@@ -1,6 +1,16 @@
 # URL Shortener
 A Flask-based web application that shortens URL's. The application uses a MongoDB database to store the original URLs and their corresponding short URLs, and has multiple endpoints for shortening and redirecting URLs. It supports both JSON and HTML requests and has error handling in place.
 
+# Table of Contents
+- [URL Shortener](#url-shortener)
+- [Application Features](#application-features)
+- [Technical Info](#technical-info)
+- [Setup](#setup)
+  * [Database](#database)
+  * [Flask Application](#flask-application)
+- [Use](#use)
+  * [Endpoints](#endpoints)
+- [Directory Structure](#directory-structure)
 # Application Features
 - URL Shortening
 - URL Redirection
@@ -23,7 +33,8 @@ One way to set this up is by using Docker with the following command:
 **Note:** MongoDB 5.0+ requires a CPU with AVX support, if your cpu does not have support use `mongo:4`
 
 ## Flask Application
-1. Clone the repository: `$ git clone https://github.com/<repo-name>.git`
+1. Clone the repository: `$ git clone https://github.com/<repo-name>.git` 
+   (or extract a copy somebody sent you)
 
 2. Change the working directory to the cloned repository: `$ cd url-shortner`
 
